@@ -1,0 +1,75 @@
+import java.applet.Applet;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+public class ShapeDrawerApplet extends Applet implements ItemListener {
+    private String shape;
+    private Color foregroundColor;
+    private Color backgroundColor;
+
+    public void init() {
+        setLayout(new FlowLayout());
+
+        CheckboxGroup shapeGroup = new CheckboxGroup();
+        Checkbox circleCheckbox = new Checkbox("Circle", shapeGroup, false);
+        Checkbox squareCheckbox = new Checkbox("Square", shapeGroup, false);
+        Checkbox rectangleCheckbox = new Checkbox("Rectangle", shapeGroup, false);
+
+        circleCheckbox.addItemListener(this);
+        squareCheckbox.addItemListener(this);
+        rectangleCheckbox.addItemListener(this);
+
+        add(circleCheckbox);
+        add(squareCheckbox);
+        add(rectangleCheckbox);
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        if (shape != null) {
+            g.setColor(backgroundColor);
+            g.fillRect(0, 0, getWidth(), getHeight());
+
+            g.setColor(foregroundColor);
+            switch (shape) {
+                case "Circle":
+                    g.fillOval(50, 50, 100, 100);
+                    break;
+                case "Square":
+                    g.fillRect(50, 50, 100, 100);
+                    break;
+                case "Rectangle":
+                    g.fillRect(50, 50, 150, 100);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        Checkbox checkbox = (Checkbox) e.getSource();
+        shape = checkbox.getLabel();
+        setColors();  // Set foreground and background colors based on the selected shape
+        repaint();
+    }
+
+    private void setColors() {
+        // You can customize these colors as needed
+        switch (shape) {
+            case "Circle":
+                foregroundColor = Color.BLUE;
+                backgroundColor = Color.YELLOW;
+                break;
+            case "Square":
+                foregroundColor = Color.GREEN;
+                backgroundColor = Color.RED;
+                break;
+            case "Rectangle":
+                foregroundColor = Color.MAGENTA;
+                backgroundColor = Color.CYAN;
+                break;
+        }
+    }
+}
