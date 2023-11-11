@@ -1,0 +1,70 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class TrafficLightSimulator extends JFrame implements ActionListener {
+    private JLabel messageLabel;
+
+    public TrafficLightSimulator() {
+        setTitle("Traffic Light Simulator");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 400);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        JPanel trafficLightPanel = new JPanel();
+        trafficLightPanel.setLayout(new GridLayout(4, 1));
+
+        JRadioButton redButton = new JRadioButton("Red");
+        redButton.addActionListener(this);
+        JRadioButton yellowButton = new JRadioButton("Yellow");
+        yellowButton.addActionListener(this);
+        JRadioButton greenButton = new JRadioButton("Green");
+        greenButton.addActionListener(this);
+
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(redButton);
+        buttonGroup.add(yellowButton);
+        buttonGroup.add(greenButton);
+
+        trafficLightPanel.add(redButton);
+        trafficLightPanel.add(yellowButton);
+        trafficLightPanel.add(greenButton);
+
+        messageLabel = new JLabel("Select a light");
+        messageLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        mainPanel.add(trafficLightPanel, BorderLayout.CENTER);
+        mainPanel.add(messageLabel, BorderLayout.NORTH);
+
+        add(mainPanel);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "Red":
+                showMessage("Stop", Color.RED);
+                break;
+            case "Yellow":
+                showMessage("Ready", Color.YELLOW);
+                break;
+            case "Green":
+                showMessage("Go", Color.GREEN);
+                break;
+        }
+    }
+
+    private void showMessage(String text, Color color) {
+        messageLabel.setText(text);
+        messageLabel.setForeground(color);
+    }
+
+    public static void main(String[] args) {
+        new TrafficLightSimulator();
+    }
+}
