@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+
+class ArrayManipulator<T> {
+    private ArrayList<T> array;
+
+    public ArrayManipulator() {
+        this.array = new ArrayList<>();
+    }
+
+    public void addElement(T element) {
+        array.add(element);
+    }
+
+    public void addElementAtIndex(int index, T element) {
+        array.add(index, element);
+    }
+
+    public void deleteElementAtIndex(int index) {
+        if (index >= 0 && index < array.size()) {
+            array.remove(index);
+        } else {
+            System.out.println("Invalid index");
+        }
+    }
+
+    public void displayArray() {
+        System.out.println(array);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        ArrayManipulator<Integer> intArrayManipulator = new ArrayManipulator<>();
+
+        intArrayManipulator.addElement(1);
+        intArrayManipulator.addElement(2);
+        intArrayManipulator.addElement(3);
+
+        intArrayManipulator.displayArray();
+
+        intArrayManipulator.addElementAtIndex(1, 4);
+        intArrayManipulator.displayArray();
+
+        intArrayManipulator.deleteElementAtIndex(2);
+        intArrayManipulator.displayArray();
+    }
+}
