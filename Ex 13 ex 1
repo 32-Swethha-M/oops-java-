@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class StringManipulator {
+    public static void main(String[] args) {
+        List<String> words = new ArrayList<>();
+        words.add("apple");
+        words.add("banana");
+        words.add("orange");
+        words.add("grapes");
+        words.add("peach");
+        words.add("cherries");
+        words.add("apples");
+        words.add("bananas");
+        words.add("oranges");
+        words.add("grapes");
+        words.add("peaches");
+        words.add("cherries");
+
+        // Display all words
+        System.out.println("All words: " + words);
+
+        // Display plurals with 's' capitalized
+        words.replaceAll(word -> word.endsWith("s") ? word.substring(0, word.length() - 1).toUpperCase() + "S" : word);
+        System.out.println("Plurals capitalized: " + words);
+
+        // Display in reverse order
+        List<String> reversedWords = new ArrayList<>(words);
+        java.util.Collections.reverse(reversedWords);
+        System.out.println("Reversed order: " + reversedWords);
+
+        // Remove plurals
+        reversedWords.removeIf(word -> word.endsWith("S"));
+        System.out.println("Plurals removed: " + reversedWords);
+    }
+}
