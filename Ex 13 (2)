@@ -1,0 +1,45 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class Student {
+    private String name;
+    private int rollNo;
+    private double cgpa;
+
+    public Student(String name, int rollNo, double cgpa) {
+        this.name = name;
+        this.rollNo = rollNo;
+        this.cgpa = cgpa;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getRollNo() {
+        return rollNo;
+    }
+
+    public double getCgpa() {
+        return cgpa;
+    }
+}
+
+public class StudentSorter {
+    public static void main(String[] args) {
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Alice", 101, 3.8));
+        students.add(new Student("Bob", 102, 3.5));
+        // Add more students...
+
+        // Sort students by name in descending order using Comparator
+        Collections.sort(students, Comparator.comparing(Student::getName).reversed());
+
+        // Display sorted students
+        for (Student student : students) {
+            System.out.println("Name: " + student.getName() + ", Roll No: " + student.getRollNo() + ", CGPA: " + student.getCgpa());
+        }
+    }
+}
