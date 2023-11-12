@@ -1,0 +1,25 @@
+class MaxFinder {
+    public static <T extends Comparable<T>> T findMax(T[] array) {
+        if (array == null || array.length == 0) {
+            return null;
+        }
+
+        T max = array[0];
+        for (T element : array) {
+            if (element.compareTo(max) > 0) {
+                max = element;
+            }
+        }
+        return max;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Integer[] intArray = {3, 7, 1, 5, 9};
+        System.out.println("Maximum value: " + MaxFinder.findMax(intArray));
+
+        Double[] doubleArray = {2.5, 8.1, 4.7, 6.3};
+        System.out.println("Maximum value: " + MaxFinder.findMax(doubleArray));
+    }
+}
