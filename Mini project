@@ -1,0 +1,106 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+class Employee {
+    private String name;
+    private int id;
+    private String department;
+
+    public Employee(String name, int id, String department) {
+        this.name = name;
+        this.id = id;
+        this.department = department;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+}
+
+public class EmployeeManagementSystem extends JFrame implements ActionListener {
+    private JTextField nameField, idField, departmentField;
+    private JTextArea displayArea;
+    private ArrayList<Employee> employeeList;
+
+    public EmployeeManagementSystem() {
+        employeeList = new ArrayList<>();
+
+        JLabel nameLabel = new JLabel("Name:");
+        nameField = new JTextField(20);
+
+        JLabel idLabel = new JLabel("ID:");
+        idField = new JTextField(10);
+
+        JLabel departmentLabel = new JLabel("Department:");
+        departmentField = new JTextField(20);
+
+        JButton addButton = new JButton("Add Employee");
+        addButton.addActionListener(this);
+
+        displayArea = new JTextArea(10, 40);
+        displayArea.setEditable(false);
+
+        JPanel panel = new JPanel();
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(idLabel);
+        panel.add(idField);
+        panel.add(departmentLabel);
+        panel.add(departmentField);
+        panel.add(addButton);
+
+        JScrollPane scrollPane = new JScrollPane(displayArea);
+
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(panel, BorderLayout.NORTH);
+        contentPane.add(scrollPane, BorderLayout.CENTER);
+
+        setTitle("Employee Management System");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String name = nameField.getText();
+        int id = Integer.parseInt(idField.getText());
+        String department = departmentField.getText();
+
+        Employee employee = new Employee(name, id, department);
+        employeeList.add(employee);
+
+        displayEmployees();
+        clearFields();
+    }
+
+    private void displayEmployees() {
+        displayArea.setText("");
+        for (Employee emp : employeeList) {
+            displayArea.append("Name: " + emp.getName() + "\n");
+            displayArea.append("ID: " + emp.getId() + "\n");
+            displayArea.append("Department: " + emp.getDepartment() + "\n\n");
+        }
+    }
+
+    private void clearFields() {
+        nameField.setText("");
+        idField.setText("");
+        departmentField.setText("");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new EmployeeManagementSystem());
+    }
+}
